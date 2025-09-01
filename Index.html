@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Your Secret Envelope</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#ffeaf4; text-align: center; padding: 50px; }
+    input, button { padding: 10px; margin: 10px; border-radius: 8px; border: 1px solid #ff8fb1; }
+    button { background: #ff8fb1; color: white; cursor: pointer; }
+    a { color: #ff4d6d; word-wrap: break-word; }
+  </style>
+</head>
+<body>
+  <h1>💌 Create Your Secret Envelope</h1>
+  <input type="text" id="message" placeholder="Type your message here">
+  <button onclick="generateLink()">Generate Link</button>
+  <p id="linkArea"></p>
+
+<script>
+function generateLink() {
+  const msg = encodeURIComponent(document.getElementById('message').value.trim());
+  if (!msg) {
+    alert('Please type a message first!');
+    return;
+  }
+  const base = window.location.origin + '/view.html?msg=' + msg;
+  document.getElementById('linkArea').innerHTML = `
+    <strong>Your Link:</strong><br>
+    <a href="${base}" target="_blank">${base}</a><br><br>
+    <small>Make a QR code from this link and send 💖</small>
+  `;
+}
+</script>
+</body>
+</html>
