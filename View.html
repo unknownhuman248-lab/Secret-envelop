@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secret Envelope</title>
+  <style>
+    body {
+      display: flex; justify-content: center; align-items: center;
+      height: 100vh; background: #ffeaf4; margin: 0; font-family: Arial, sans-serif;
+    }
+    .envelope {
+      position: relative; width: 300px; height: 200px;
+      background: #fff; border: 2px solid #ff8fb1; border-radius: 10px;
+      overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      cursor: pointer; transition: transform 0.4s ease;
+    }
+    .envelope:hover { transform: scale(1.05); }
+    .flap {
+      position: absolute; top: 0; left: 0; width: 100%; height: 50%;
+      background: #ffb6c1; clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transition: transform 0.5s ease; transform-origin: top;
+    }
+    .message {
+      position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+      background: #fff0f5; padding: 20px; box-sizing: border-box;
+      text-align: center; font-size: 1.2em; color: #ff4d6d;
+      transform: translateY(100%); transition: transform 0.5s ease;
+      display: flex; justify-content: center; align-items: center;
+    }
+    .envelope.open .flap { transform: rotateX(180deg); }
+    .envelope.open .message { transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <div class="envelope" onclick="this.classList.toggle('open')">
+    <div class="flap"></div>
+    <div class="message" id="secretMsg">💖 Your secret message 💖</div>
+  </div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const msg = params.get('msg');
+if (msg) {
+  document.getElementById('secretMsg').textContent = decodeURIComponent(msg);
+}
+</script>
+</body>
+</html>
